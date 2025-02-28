@@ -17,21 +17,21 @@
 /tax-calculator-project
 │── /assets
 │   │── /css
-│   │   ├── style.css          # ไฟล์สไตล์หลักของเว็บ
-│   │── /js
-│   │   ├── tax-calculator.js  # ฟังก์ชันคำนวณภาษี
-│   │   ├── tax-storage.js     # บันทึกข้อมูลภาษีย้อนหลัง
-│   │   ├── tax-penalty.js     # คิดค่าปรับ
-│   │── /images                # เก็บรูปภาพที่ใช้ในเว็บ
-│
-│── /components                # ไฟล์ UI ที่ดึงมาจาก Figma Dev Mode
-│   │── navbar.html             # แถบเมนู
-│   │── footer.html             # ส่วนท้ายเว็บ
-│
-│── index.html                 # หน้าเว็บหลัก
-│── tax-info.html              # เมนูให้ความรู้เกี่ยวกับภาษี
-│── print-page.html            # หน้าสำหรับสั่งพิมพ์ข้อมูล
-│── README.md                  # คำอธิบายโปรเจกต์
+│   │   ├── style.css          # (ไฟล์สไตล์หลักของเว็บ)
+│   │   ├── figma-styles.css   # (สไตล์จาก Figma Dev Mode)
+│── /js
+│   │   ├── tax-calculator.js  # (ฟังก์ชันคำนวณภาษี)
+│   │   ├── tax-storage.js     # (บันทึกข้อมูลภาษีย้อนหลัง)
+│   │   ├── tax-penalty.js     # (คิดค่าปรับ)
+│── /images                    # (เก็บรูปภาพที่ใช้ในเว็บ)
+│── /components                 # (โฟลเดอร์สำหรับไฟล์ที่แยกจาก Figma)
+│   │── navbar.html             # (แถบเมนู)
+│   │── footer.html             # (ส่วนท้ายเว็บ)
+│   │── calculator-section.html  # (ส่วน UI ของเครื่องคำนวณภาษี)
+│── index.html                 # (หน้าเว็บหลัก)
+│── tax-info.html              # (เมนูให้ความรู้เกี่ยวกับภาษี)
+│── print-page.html            # (หน้าสำหรับสั่งพิมพ์ข้อมูล)
+│── README.md                  # (คำอธิบายโปรเจกต์)
 ```
 
 ---
