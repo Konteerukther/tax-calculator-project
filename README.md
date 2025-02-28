@@ -58,9 +58,9 @@ git clone [repository-url]
 cd tax-calculator-project
 ```
 
-### 2️⃣ สร้าง Branch ใหม่
+### 2️⃣ เลือก Branch สำหรับฟีเจอร์ที่ต้องการ
 ```sh
-git checkout -b feature/ชื่อฟีเจอร์
+git checkout feature/ชื่อฟีเจอร์
 ```
 
 ### 3️⃣ Commit และ Push
