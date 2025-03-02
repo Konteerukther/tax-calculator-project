@@ -1,37 +1,498 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../assets/css/figma-styles.css" />
-  </head>
-  <body>
-    <div class="screen">
-      <div class="view">
-        <img class="back-previous" src="img/back-previous.svg" />
-        <div class="body">
-          <div class="text-wrapper">รายรับ</div>
-          <div class="user-input">
-            <div class="div">
-              <div class="text-wrapper-2">เงินเดือน (บาท)</div>
-              <div class="rectangle"></div>
-            </div>
-            <div class="div">
-              <div class="text-wrapper-2">โบนัส (บาท)</div>
-              <div class="rectangle"></div>
-            </div>
-            <div class="div">
-              <div class="text-wrapper-2">รายได้เสริม (บาท)</div>
-              <div class="rectangle"></div>
-            </div>
-          </div>
-          <div class="div-wrapper"><div class="text-wrapper-3">ถัดไป</div></div>
-        </div>
-        <div class="trees-flowers">
-          <div class="tree-mask">
-            <img class="img" src="img/rectangle-29.svg" /> <img class="tree-group" src="img/tree-group.png" />
-          </div>
-        </div>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>คำนวณภาษีบุคคลธรรมดา</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons / Custom Fonts -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm no-print">
+    <div class="container">
+      <a class="navbar-brand" href="/index.html">Tax Tools</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/index.html">หน้าแรก</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/components/calculator-section.html">คำนวณภาษี</a></li>
+          <li class="nav-item"><a class="nav-link" href="penalty-calculator.html">คำนวณค่าปรับ</a></li>
+        </ul>
       </div>
     </div>
-  </body>
+  </nav>
+  
+  <!-- Content -->
+  <div class="container py-5">
+    <div class="card mx-auto shadow" style="max-width: 900px;">
+      <div class="card-body p-4">
+        <h2 class="text-center mb-4">คำนวณภาษีบุคคลธรรมดา</h2>
+        
+        <!-- Step Indicator -->
+        <div class="step-indicator" id="stepIndicator">
+          <div class="step active" onclick="goToStep(1)">
+            <div class="step-number">1</div>
+            <div class="step-title"> รายได้ </div>
+          </div>
+          <div class="step" onclick="goToStep(2)">
+            <div class="step-number">2</div>
+            <div class="step-title"> ลดหย่อนส่วนบุคคล/ครอบครัว </div>
+          </div>
+          <div class="step" onclick="goToStep(3)">
+            <div class="step-number" >3</div>
+            <div class="step-title"> กระตุ้นเศรษฐกิจ </div>
+          </div>
+          <div class="step" onclick="goToStep(4)">
+            <div class="step-number">4</div>
+            <div class="step-title"> ประกัน/เงินออม </div>
+          </div>
+          <div class="step" onclick="goToStep(5)">
+            <div class="step-number">5</div>
+            <div class="step-title"> การลงทุน </div>
+          </div>
+          <div class="step" onclick="goToStep(6)">
+            <div class="step-number">6</div>
+            <div class="step-title"> เงินบริจาค </div>
+          </div>
+          <div class="step" onclick="goToStep(7)">
+            <div class="step-number">7</div>
+            <div class="step-title"> สรุปภาษี </div>
+          </div>
+        </div>
+        
+        <!-- Multi-step Form -->
+        <form id="taxForm">
+          <!-- Step 1: รายได้ -->
+          <div class="step-content" id="step-1">
+            <div class="mb-3">
+              <label class="form-label">
+                รายได้ต่อปี (บาท/ปี)
+                <span data-bs-toggle="tooltip" title="กรอกรายได้ทั้งหมดจากแค่เงินเดือน (คูณด้วย 12)">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="salary" placeholder="เงินเดือนที่ได้รับทั้งปี">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                โบนัส (บาท/ปี)
+                <span data-bs-toggle="tooltip" title="กรอกจำนวนโบนัสที่ได้รับต่อปี">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="bonus" placeholder="กรอกโบนัสที่ได้รับ">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                รายได้อื่น ๆ (บาท/ปี)
+                <span data-bs-toggle="tooltip" title="เช่น งานฟรีแลนซ์, ค่าจ้างเพิ่มเติม">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="otherIncome" placeholder="รายได้อื่น ๆ">
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-info" onclick="loadTaxData()">โหลดข้อมูล</button>
+              <button type="button" class="btn btn-warning" onclick="goToStep(7)">ถัดไปอันสุดท้าย</button>
+              <button type="button" class="btn btn-dark" onclick="goToStep(2)">ถัดไป</button>
+            </div>
+          </div>
+          
+          <!-- Step 2: ลดหย่อนส่วนบุคคล/ครอบครัว -->
+          <div class="step-content d-none" id="step-2">
+            <div class="mb-3">
+              <label class="form-label">
+                ค่าใช้จ่ายเงินประเภทที่ 1 (50% ของรายได้, ไม่เกิน 100,000 บาท)
+                <span data-bs-toggle="tooltip" title="50% ของรายได้รวมแต่ไม่เกิน 100,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control" id="personalPaymentDeductionFinal" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                ค่าลดหย่อนส่วนบุคคล (60,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนส่วนบุคคล 60,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control" value="60000" readonly>
+            </div>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" id="spouseEligible">
+              <label class="form-check-label" for="spouseEligible">
+                คู่สมรสจดทะเบียนและไม่มีรายได้ (60,000 บาท)
+                <span data-bs-toggle="tooltip" title="คู่สมรสไม่มีรายได้ ลดหย่อนได้ 60,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="spouseDisabled">
+              <label class="form-check-label" for="spouseDisabled">
+                คู่สมรสมีสถานะผู้พิการ (เพิ่มอีก 60,000 บาท)
+                <span data-bs-toggle="tooltip" title="คู่สมรสพิการ ลดหย่อนได้เพิ่ม 60,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="togglePersonalExtra" onclick="toggleCollapse('personalExtra')">
+              <label class="form-check-label" for="togglePersonalExtra">
+                แสดงรายละเอียดเพิ่มเติมสำหรับครอบครัว
+                <span data-bs-toggle="tooltip" title="กรอกข้อมูลเพิ่มเติม เช่น ฝากครรภ์, บุตร, บิดามารดา, ผู้พิการ">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+            </div>
+            <div id="personalExtra" class="d-none">
+              <div class="mb-3">
+                <label class="form-label">
+                  ค่าลดหย่อนฝากครรภ์และคลอดบุตร (จ่ายจริง, max 60,000 บาท)
+                  <span data-bs-toggle="tooltip" title="จำนวนเงินที่จ่ายจริง แต่ไม่เกิน 60,000 บาท">
+                    <i class="bi bi-caret-up-fill"></i>
+                  </span>
+                </label>
+                <input type="text" class="form-control format-number" id="pregnancyDeduction" placeholder="จำนวนที่จ่ายจริง">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">
+                  จำนวนบุตรชอบด้วยกฎหมาย (อายุ 7 ปีขึ้นไป)
+                  <span data-bs-toggle="tooltip" title="ลูกคนแรก 30,000; ลูกที่สองขึ้นไป 60,000 ต่อคน">
+                    <i class="bi bi-caret-up-fill"></i>
+                  </span>
+                </label>
+                <input type="text" class="form-control" id="legalChildrenOlder" placeholder="จำนวนบุตร (7 ปีขึ้นไป)">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">
+                  จำนวนบุตรชอบด้วยกฎหมาย (อายุน้อยกว่า 7 ปี)
+                  <span data-bs-toggle="tooltip" title="ลูกคนแรก 30,000; ลูกที่สองขึ้นไป 60,000 ต่อคน">
+                    <i class="bi bi-caret-up-fill"></i>
+                  </span>
+                </label>
+                <input type="text" class="form-control" id="legalChildrenYounger" placeholder="จำนวนบุตร (น้อยกว่า 7 ปี)">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">
+                  จำนวนบุตรบุญธรรม (สูงสุด 3 คน)
+                  <span data-bs-toggle="tooltip" title="ลดหย่อนได้ 30,000 ต่อคน สูงสุด 3 คน">
+                    <i class="bi bi-caret-up-fill"></i>
+                  </span>
+                </label>
+                <input type="text" class="form-control" id="adoptedChildren" placeholder="จำนวนบุตรบุญธรรม">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">
+                  จำนวนบิดามารดาที่เลี้ยงดู (สูงสุด 4 คน)
+                  <span data-bs-toggle="tooltip" title="ลดหย่อนได้ 30,000 ต่อคน สูงสุด 4 คน">
+                    <i class="bi bi-caret-up-fill"></i>
+                  </span>
+                </label>
+                <input type="text" class="form-control" id="parentalCount" placeholder="จำนวนบิดามารดา">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">
+                  จำนวนผู้พิการ/ทุพลภาพที่อุปการะ (คนละ 60,000 บาท)
+                  <span data-bs-toggle="tooltip" title="ลดหย่อนได้ 60,000 ต่อคน">
+                    <i class="bi bi-caret-up-fill"></i>
+                  </span>
+                </label>
+                <input type="text" class="form-control" id="disabilityCount" placeholder="จำนวนผู้ที่อุปการะ">
+              </div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" onclick="goToStep(1)">ย้อนกลับ</button>
+              <button type="button" class="btn btn-dark" onclick="goToStep(3)">ถัดไป</button>
+            </div>
+          </div>
+          
+          <!-- Step 3: ลดหย่อนกลุ่มกระตุ้นเศรษฐกิจ -->
+          <div class="step-content d-none" id="step-3">
+            <div class="mb-3">
+              <label class="form-label">
+                Easy e-Receipt 2567 (ไม่เกิน 50,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสำหรับ e-Receipt: ไม่เกิน 50,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="easyEReceipt" placeholder="Easy e-Receipt">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                ดอกเบี้ยที่อยู่อาศัย (ไม่เกิน 100,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสำหรับดอกเบี้ยที่อยู่อาศัย: ไม่เกิน 100,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="housingInterest" placeholder="ดอกเบี้ยที่อยู่อาศัย">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                ค่าสร้างบ้านใหม่ 2567-2568 (ไม่เกิน 10,000,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสำหรับค่าสร้างบ้านใหม่: 10,000 บาทต่อ 1,000,000 (max 100,000)">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="newHouse" placeholder="ค่าสร้างบ้านใหม่">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เที่ยวเมืองรอง 2567 (ไม่เกิน 15,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสำหรับเที่ยวเมืองรอง: ไม่เกิน 15,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="provincialTour" placeholder="เที่ยวเมืองรอง">
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" onclick="goToStep(2)">ย้อนกลับ</button>
+              <button type="button" class="btn btn-dark" onclick="goToStep(4)">ถัดไป</button>
+            </div>
+          </div>
+          
+          <!-- Step 4: ลดหย่อนภาษีกลุ่มประกัน/เงินออม -->
+          <div class="step-content d-none" id="step-4">
+            <div class="mb-3">
+              <label class="form-label">
+                กองทุนสำรองเลี้ยงชีพ (ไม่เกิน 15% ของรายได้, ไม่เกิน 500,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสูงสุด 15% ของรายได้, ไม่เกิน 500,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="social_for_family" placeholder="กองทุนสำรองเลี้ยงชีพ">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                ประกันสังคม (ไม่เกิน 9,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนประกันสังคม: สูงสุด 9,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="socialSecurity" placeholder="ประกันสังคม">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เบี้ยประกันชีวิต/แบบสะสมทรัพย์ (ไม่เกิน 100,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนเบี้ยประกันชีวิต: สูงสุด 100,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="lifeInsurance" placeholder="ประกันชีวิต/สะสมทรัพย์">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เบี้ยประกันสุขภาพ/อุบัติเหตุ (ไม่เกิน 25,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนเบี้ยประกันสุขภาพ: สูงสุด 25,000 บาท (รวมกับประกันชีวิตไม่เกิน 100,000)">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="healthInsuranceSelf" placeholder="ประกันสุขภาพตัวเอง">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เบี้ยประกันสุขภาพบิดามารดา (ไม่เกิน 15,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนเบี้ยประกันสุขภาพบิดามารดา: สูงสุด 15,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="healthInsuranceParents" placeholder="ประกันสุขภาพบิดามารดา">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เบี้ยประกันชีวิตคู่สมรส (ไม่เกิน 10,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนเบี้ยประกันชีวิตคู่สมรส: สูงสุด 10,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="spouseInsurance" placeholder="ประกันชีวิตคู่สมรส">
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" onclick="goToStep(3)">ย้อนกลับ</button>
+              <button type="button" class="btn btn-dark" onclick="goToStep(5)">ถัดไป</button>
+            </div>
+          </div>
+          
+          <!-- Step 5: ลดหย่อนภาษีกลุ่มการลงทุน -->
+          <div class="step-content d-none" id="step-5">
+            <div class="mb-3">
+              <label class="form-label">
+                เงินลงทุนธุรกิจ Social Enterprise (ไม่เกิน 100,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนเงินลงทุนธุรกิจ Social Enterprise: สูงสุด 100,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="socialEnterpriseInvestment" placeholder="Social Enterprise">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                กองทุน ThaiESG (ลดหย่อนได้ 30% สูงสุด 300,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนกองทุน ThaiESG: 30% ของที่จ่าย สูงสุด 300,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="thaiesgFund" placeholder="กองทุน ThaiESG">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                กองทุน RMF (ลดหย่อนได้ 30% สูงสุด 500,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนกองทุน RMF: 30% ของที่จ่าย สูงสุด 500,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="rmfFund" placeholder="กองทุน RMF">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                กองทุน SSF (ลดหย่อนได้ 30% สูงสุด 200,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนกองทุน SSF: 30% ของที่จ่าย สูงสุด 200,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="ssfFund" placeholder="กองทุน SSF">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                กองทุน PVD/สงเคราะห์ครู (ลดหย่อนได้ 15% สูงสุด 500,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนกองทุน PVD: 15% ของที่จ่าย สูงสุด 500,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="pvdFund" placeholder="กองทุน PVD">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                กองทุนบำเหน็จบำนาญราชการ (กบข.) (ลดหย่อนได้ 30% สูงสุด 500,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนกองทุน กบข.: 30% ของที่จ่าย สูงสุด 500,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="kbkFund" placeholder="กองทุน กบข">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                กองทุนการออมแห่งชาติ (ไม่เกิน 30,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนกองทุนการออม: สูงสุด 30,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="savingsFund" placeholder="กองทุนการออม">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เบี้ยประกันชีวิตแบบบำนาญ (ลดหย่อนได้ 15% สูงสุด 200,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนเบี้ยประกันชีวิตแบบบำนาญ: 15% ของที่จ่าย สูงสุด 200,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="pensionInsurance" placeholder="ประกันชีวิตแบบบำนาญ">
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" onclick="goToStep(4)">ย้อนกลับ</button>
+              <button type="button" class="btn btn-dark" onclick="goToStep(6)">ถัดไป</button>
+            </div>
+          </div>
+          
+          <!-- Step 6: ลดหย่อนกลุ่มเงินบริจาค -->
+          <div class="step-content d-none" id="step-6">
+            <div class="mb-3">
+              <label class="form-label">
+                เงินบริจาคทั่วไป
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสำหรับเงินบริจาคทั่วไป: ตามที่จ่ายจริง แต่ไม่เกิน 10% ของเงินได้หลังหักลดหย่อน">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="generalDonation" placeholder="เงินบริจาคทั่วไป">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เงินบริจาคเพื่อการศึกษา/กีฬา/พัฒนาสังคม/สถานพยาบาลรัฐ
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสำหรับบริจาคเพื่อสาธารณะ: ได้ 2 เท่า แต่ไม่เกิน 10% ของเงินได้หลังลดหย่อน">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="educationDonation" placeholder="เงินบริจาคเพื่อสาธารณะ">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">
+                เงินบริจาคให้กับพรรคการเมือง (ไม่เกิน 10,000 บาท)
+                <span data-bs-toggle="tooltip" title="ลดหย่อนสำหรับบริจาคให้พรรคการเมือง: สูงสุด 10,000 บาท">
+                  <i class="bi bi-caret-up-fill"></i>
+                </span>
+              </label>
+              <input type="text" class="form-control format-number" id="politicalDonation" placeholder="บริจาคพรรคการเมือง">
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" onclick="goToStep(5)">ย้อนกลับ</button>
+              <button type="button" class="btn btn-dark" onclick="goToStep(7)">ถัดไป</button>
+            </div>
+          </div>
+          
+          <!-- Step 7: สรุปภาษี -->
+          <div class="step-content d-none" id="step-7">
+            <div class="mb-3">
+              <h5>รายได้รวมต่อปี: <span id="totalIncomeDisplay">0</span> บาท</h5>
+              <h5>ลดหย่อนรวม: <span id="totalDeductionDisplay">0</span> บาท</h5>
+              <p class="mt-1 text-muted no-print">
+                * คำนวณ: รายได้รวม - ลดหย่อนรวม = รายได้สุทธิ
+              </p>
+              <p class="mt-1 text-muted no-print">
+                แล้วนำรายได้สุทธิคำนวณภาษีแบบขั้นบันได
+              </p>
+              <h5>รายได้สุทธิ: <span id="netIncomeDisplay">0</span> บาท</h5>
+              <hr>
+              <h4>ภาษีที่ต้องชำระ: <span id="taxDisplay">0</span> บาท</h4>
+            </div>
+            <div class="mb-3">
+              <h5>รายละเอียดภาษีแบบขั้นบันได:</h5>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ช่วงรายได้ (บาท)</th>
+                    <th>อัตราภาษี (%)</th>
+                    <th>ภาษีที่เสีย (บาท)</th>
+                  </tr>
+                </thead>
+                <tbody id="taxTableBody"></tbody>
+              </table>
+            </div>
+            <div class="mb-3">
+              <h5>รายละเอียดลดหย่อน</h5>
+              <div id="deductionBreakdown"></div>
+            </div>
+            <div class="d-flex justify-content-between no-print">
+              <button type="button" class="btn btn-danger" onclick="goToStep(1)">กลับไปจุดเริ่มต้น</button>
+              <button type="button" class="btn btn-secondary" onclick="goToStep(6)">ย้อนกลับ</button>
+
+              <div>
+                <button type="button" class="btn btn-warning" onclick="saveTaxData()">บันทึกข้อมูล</button>
+                <button type="button" class="btn btn-info" onclick="loadTaxData()">โหลดข้อมูล</button>
+                <button type="button" class="btn btn-secondary" onclick="downloadTaxData()">ดาวน์โหลดข้อมูล</button>
+                <button type="button" class="btn btn-info" onclick="window.print(); sendToMIT(massage);" >ปริ้นหน้าสรุป</button>
+                <button type="submit" class="btn btn-success d-none">ยืนยัน</button>
+              </div>
+            </div>
+            <p class="mt-4 text-muted no-print">
+              * การคำนวณเป็นการประมาณตามโครงสร้างภาษีล่าสุด
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="/assets/js/tax-calculator.js"></script>
+  <script>massage ="PDF Generated"</script>
+</body>
 </html>
