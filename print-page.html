@@ -7,108 +7,165 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-<!-- Step 7: สรุปภาษี -->
-<div class="step-content" id="step-7">
-    <h5>รายได้รวมต่อปี: <span id="totalIncomeDisplay">100000</span> บาท</h5>
-    <h5>ลดหย่อนรวม: <span id="totalDeductionDisplay">50000</span> บาท</h5>
-    <h5>รายได้สุทธิ: <span id="netIncomeDisplay">50000</span> บาท</h5>
-    <hr>
-    <h4>ภาษีที่ต้องชำระ: <span id="taxDisplay">1000</span> บาท</h4>
-    <button onclick="generatePDF()">ดาวน์โหลด PDF</button>
-    <button onclick="generateJSON()">ดาวน์โหลด JSON</button>
-    <input type="file" id="jsonFileInput" accept="application/json" onchange="loadJSON()">
-</div>
+    <div class="step-content" id="step-7">
+        <h2>กรอกข้อมูลภาษี</h2>
 
-<script>
-    // ฟังก์ชันสำหรับสร้าง PDF
-    function generatePDF() {
-        console.log("Generating PDF...");
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        const totalIncome = document.getElementById('totalIncomeDisplay').innerText;
-        const totalDeduction = document.getElementById('totalDeductionDisplay').innerText;
-        const netIncome = document.getElementById('netIncomeDisplay').innerText;
-        const taxAmount = document.getElementById('taxDisplay').innerText;
-        
-        doc.text("รายงานสรุปภาษี", 10, 10);
-        doc.text(`รายได้รวมต่อปี: ${totalIncome} บาท`, 10, 20);
-        doc.text(`ลดหย่อนรวม: ${totalDeduction} บาท`, 10, 30);
-        doc.text(`รายได้สุทธิ: ${netIncome} บาท`, 10, 40);
-        doc.text(`ภาษีที่ต้องชำระ: ${taxAmount} บาท`, 10, 50);
-        
-        doc.save("taxSummary.pdf");
-        console.log("PDF generated successfully.");
-        sendToMIT("PDF generated successfully.");
-    }
+        <label for="totalIncome">รายได้รวมต่อปี (บาท): </label>
+        <input type="number" id="totalIncome" placeholder="กรอกรายได้รวม" value="100000">
+        <br>
 
-    // ฟังก์ชันสำหรับสร้าง JSON
-    function generateJSON() {
-        console.log("Generating JSON...");
-        const data = {
-            totalIncome: document.getElementById('totalIncomeDisplay').innerText,
-            totalDeduction: document.getElementById('totalDeductionDisplay').innerText,
-            netIncome: document.getElementById('netIncomeDisplay').innerText,
-            taxAmount: document.getElementById('taxDisplay').innerText
-        };
-        console.log("JSON Data:", data);
-        const jsonData = JSON.stringify(data, null, 2);
-        const blob = new Blob([jsonData], { type: "application/json" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "taxData.json";
-        link.click();
-        console.log("JSON file downloaded.");
-        sendToMIT("JSON file downloaded.");
-    }
+        <label for="totalDeduction">ลดหย่อนรวม (บาท): </label>
+        <input type="number" id="totalDeduction" placeholder="กรอกจำนวนลดหย่อน" value="50000">
+        <br>
 
-    // ฟังก์ชันสำหรับโหลดไฟล์ JSON
-    function loadJSON() {
-        console.log("Loading JSON file...");
-        const fileInput = document.getElementById("jsonFileInput");
-        const file = fileInput.files[0];
-        if (!file) {
-            console.log("No file selected.");
-            return;
-        }
-        
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            console.log("JSON file loaded successfully.");
-            const jsonData = JSON.parse(event.target.result);
-            console.log("Parsed JSON Data:", jsonData);
-            document.getElementById('totalIncomeDisplay').innerText = jsonData.totalIncome;
-            document.getElementById('totalDeductionDisplay').innerText = jsonData.totalDeduction;
-            document.getElementById('netIncomeDisplay').innerText = jsonData.netIncome;
-            document.getElementById('taxDisplay').innerText = jsonData.taxAmount;
-            console.log("Updated HTML with JSON data.");
-            sendToMIT("JSON data loaded successfully.");
-        };
-        reader.readAsText(file);
-    }
+        <button onclick="calculateNetIncome()">คำนวณรายได้สุทธิ</button>
+        <hr>
 
-    // ฟังก์ชันสำหรับส่งข้อมูลไปยัง MIT App Inventor
-    function sendToMIT(message) {
-        console.log("Sending to MIT App Inventor:", message);
-        if (window.AppInventor) {
-            window.AppInventor.setWebViewString(message);
-        }
-    }
+        <h5>รายได้สุทธิ: <span id="netIncomeDisplay">50000</span> บาท</h5>
+        <h4>ภาษีที่ต้องชำระ: <span id="taxDisplay">1000</span> บาท</h4>
 
-    // ฟังก์ชันนี้จะทำงานเมื่อโหลดหน้าเว็บเสร็จแล้ว
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("Waiting for commands...");
-        setInterval(function () {
-            if (window.AppInventor) {
-                let command = window.AppInventor.getWebViewString();
-                if (command === "downloadJson") {
-                    generateJSON(); // ถ้าได้รับคำสั่งให้ดาวน์โหลด JSON
-                } else if (command === "downloadPdf") {
-                    generatePDF(); // ถ้าได้รับคำสั่งให้ดาวน์โหลด PDF
-                }
+        <button onclick="saveDataToLocalStorage()">บันทึกข้อมูล</button>
+        <button onclick="generatePDF()">ดาวน์โหลด PDF</button>
+        <button onclick="generateJSON()">ดาวน์โหลด JSON</button>
+        <input type="file" id="jsonFileInput" accept="application/json" onchange="loadJSON()">
+    </div>
+
+    <script>
+        // เมื่อหน้าเว็บโหลด
+        document.addEventListener("DOMContentLoaded", function () {
+            loadDataFromLocalStorage(); // โหลดข้อมูลจาก LocalStorage
+        });
+
+        // ฟังก์ชันสำหรับคำนวณรายได้สุทธิและภาษีที่ต้องชำระ
+        function calculateNetIncome() {
+            const totalIncome = parseFloat(document.getElementById('totalIncome').value);
+            const totalDeduction = parseFloat(document.getElementById('totalDeduction').value);
+
+            if (isNaN(totalIncome) || isNaN(totalDeduction)) {
+                alert("กรุณากรอกข้อมูลให้ถูกต้อง");
+                return;
             }
-        }, 1000);
-    });
-</script>
+
+            const netIncome = totalIncome - totalDeduction;
+            const taxAmount = calculateTax(netIncome);
+
+            // แสดงผลการคำนวณ
+            document.getElementById('netIncomeDisplay').innerText = netIncome.toFixed(2);
+            document.getElementById('taxDisplay').innerText = taxAmount.toFixed(2);
+        }
+
+        // ฟังก์ชันคำนวณภาษีจากรายได้สุทธิ
+        function calculateTax(netIncome) {
+            let taxAmount = 0;
+            if (netIncome <= 150000) {
+                taxAmount = 0; // ไม่มีภาษี
+            } else if (netIncome <= 300000) {
+                taxAmount = netIncome * 0.05; // 5% ภาษี
+            } else if (netIncome <= 500000) {
+                taxAmount = netIncome * 0.1; // 10% ภาษี
+            } else if (netIncome <= 750000) {
+                taxAmount = netIncome * 0.15; // 15% ภาษี
+            } else {
+                taxAmount = netIncome * 0.2; // 20% ภาษี
+            }
+            return taxAmount;
+        }
+
+        // ฟังก์ชันสำหรับบันทึกข้อมูลลงใน LocalStorage
+        function saveDataToLocalStorage() {
+            const data = {
+                totalIncome: document.getElementById('totalIncome').value,
+                totalDeduction: document.getElementById('totalDeduction').value,
+                netIncome: document.getElementById('netIncomeDisplay').innerText,
+                taxAmount: document.getElementById('taxDisplay').innerText
+            };
+            localStorage.setItem('taxData', JSON.stringify(data));
+            console.log("Data saved to LocalStorage.");
+        }
+
+        // ฟังก์ชันสำหรับโหลดข้อมูลจาก LocalStorage
+        function loadDataFromLocalStorage() {
+            const storedData = localStorage.getItem('taxData');
+            if (storedData) {
+                const jsonData = JSON.parse(storedData);
+                document.getElementById('totalIncome').value = jsonData.totalIncome;
+                document.getElementById('totalDeduction').value = jsonData.totalDeduction;
+                document.getElementById('netIncomeDisplay').innerText = jsonData.netIncome;
+                document.getElementById('taxDisplay').innerText = jsonData.taxAmount;
+                console.log("Data loaded from LocalStorage.");
+            }
+        }
+
+        // ฟังก์ชันสำหรับสร้าง PDF
+        function generatePDF() {
+            console.log("Generating PDF...");
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const totalIncome = document.getElementById('totalIncome').value;
+            const totalDeduction = document.getElementById('totalDeduction').value;
+            const netIncome = document.getElementById('netIncomeDisplay').innerText;
+            const taxAmount = document.getElementById('taxDisplay').innerText;
+            
+            doc.text("รายงานสรุปภาษี", 10, 10);
+            doc.text(`รายได้รวมต่อปี: ${totalIncome} บาท`, 10, 20);
+            doc.text(`ลดหย่อนรวม: ${totalDeduction} บาท`, 10, 30);
+            doc.text(`รายได้สุทธิ: ${netIncome} บาท`, 10, 40);
+            doc.text(`ภาษีที่ต้องชำระ: ${taxAmount} บาท`, 10, 50);
+            
+            doc.save("taxSummary.pdf");
+            console.log("PDF generated successfully.");
+        }
+
+        // ฟังก์ชันสำหรับสร้าง JSON
+        function generateJSON() {
+            console.log("Generating JSON...");
+            let storedData = localStorage.getItem('taxData');
+            let data;
+            if (storedData) {
+                data = JSON.parse(storedData);
+            } else {
+                // กรณีไม่มีข้อมูลใน LocalStorage ให้ใช้ข้อมูลจาก element
+                data = {
+                    totalIncome: document.getElementById('totalIncome').value,
+                    totalDeduction: document.getElementById('totalDeduction').value,
+                    netIncome: document.getElementById('netIncomeDisplay').innerText,
+                    taxAmount: document.getElementById('taxDisplay').innerText
+                };
+            }
+            console.log("JSON Data:", data);
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: "application/json" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "taxData.json";
+            link.click();
+            console.log("JSON file downloaded.");
+        }
+
+        // ฟังก์ชันสำหรับโหลด JSON
+        function loadJSON() {
+            console.log("Loading JSON file...");
+            const fileInput = document.getElementById("jsonFileInput");
+            const file = fileInput.files[0];
+            if (!file) {
+                console.log("No file selected.");
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                console.log("JSON file loaded successfully.");
+                const jsonData = JSON.parse(event.target.result);
+                console.log("Parsed JSON Data:", jsonData);
+                document.getElementById('totalIncome').value = jsonData.totalIncome;
+                document.getElementById('totalDeduction').value = jsonData.totalDeduction;
+                document.getElementById('netIncomeDisplay').innerText = jsonData.netIncome;
+                document.getElementById('taxDisplay').innerText = jsonData.taxAmount;
+                console.log("Updated HTML with JSON data.");
+            };
+            reader.readAsText(file);
+        }
+    </script>
 </body>
 </html>
