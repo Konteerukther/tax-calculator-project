@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Summary</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<!-- Step 7: สรุปภาษี -->
+<div class="step-content" id="step-7">
+    <h5>รายได้รวมต่อปี: <span id="totalIncomeDisplay">100000</span> บาท</h5>
+    <h5>ลดหย่อนรวม: <span id="totalDeductionDisplay">50000</span> บาท</h5>
+    <h5>รายได้สุทธิ: <span id="netIncomeDisplay">50000</span> บาท</h5>
+    <hr>
+    <h4>ภาษีที่ต้องชำระ: <span id="taxDisplay">1000</span> บาท</h4>
+    <button onclick="generatePDF()">ดาวน์โหลด PDF</button>
+    <button onclick="generateJSON()">ดาวน์โหลด JSON</button>
+    <input type="file" id="jsonFileInput" accept="application/json" onchange="loadJSON()">
+</div>
+
+<script>
+    // ฟังก์ชันสำหรับสร้าง PDF
+    function generatePDF() {
+        console.log("Generating PDF...");
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const totalIncome = document.getElementById('totalIncomeDisplay').innerText;
+        const totalDeduction = document.getElementById('totalDeductionDisplay').innerText;
+        const netIncome = document.getElementById('netIncomeDisplay').innerText;
+        const taxAmount = document.getElementById('taxDisplay').innerText;
+        
+        doc.text("รายงานสรุปภาษี", 10, 10);
+        doc.text(`รายได้รวมต่อปี: ${totalIncome} บาท`, 10, 20);
+        doc.text(`ลดหย่อนรวม: ${totalDeduction} บาท`, 10, 30);
+        doc.text(`รายได้สุทธิ: ${netIncome} บาท`, 10, 40);
+        doc.text(`ภาษีที่ต้องชำระ: ${taxAmount} บาท`, 10, 50);
+        
+        doc.save("taxSummary.pdf");
+        console.log("PDF generated successfully.");
+        sendToMIT("PDF generated successfully.");
+    }
+
+    // ฟังก์ชันสำหรับสร้าง JSON
+    function generateJSON() {
+        console.log("Generating JSON...");
+        const data = {
+            totalIncome: document.getElementById('totalIncomeDisplay').innerText,
+            totalDeduction: document.getElementById('totalDeductionDisplay').innerText,
+            netIncome: document.getElementById('netIncomeDisplay').innerText,
+            taxAmount: document.getElementById('taxDisplay').innerText
+        };
+        console.log("JSON Data:", data);
+        const jsonData = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonData], { type: "application/json" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "taxData.json";
+        link.click();
+        console.log("JSON file downloaded.");
+        sendToMIT("JSON file downloaded.");
+    }
+
+    // ฟังก์ชันสำหรับโหลดไฟล์ JSON
+    function loadJSON() {
+        console.log("Loading JSON file...");
+        const fileInput = document.getElementById("jsonFileInput");
+        const file = fileInput.files[0];
+        if (!file) {
+            console.log("No file selected.");
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            console.log("JSON file loaded successfully.");
+            const jsonData = JSON.parse(event.target.result);
+            console.log("Parsed JSON Data:", jsonData);
+            document.getElementById('totalIncomeDisplay').innerText = jsonData.totalIncome;
+            document.getElementById('totalDeductionDisplay').innerText = jsonData.totalDeduction;
+            document.getElementById('netIncomeDisplay').innerText = jsonData.netIncome;
+            document.getElementById('taxDisplay').innerText = jsonData.taxAmount;
+            console.log("Updated HTML with JSON data.");
+            sendToMIT("JSON data loaded successfully.");
+        };
+        reader.readAsText(file);
+    }
+
+    // ฟังก์ชันสำหรับส่งข้อมูลไปยัง MIT App Inventor
+    function sendToMIT(message) {
+        console.log("Sending to MIT App Inventor:", message);
+        if (window.AppInventor) {
+            window.AppInventor.setWebViewString(message);
+        }
+    }
+
+    // ฟังก์ชันนี้จะทำงานเมื่อโหลดหน้าเว็บเสร็จแล้ว
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Waiting for commands...");
+        setInterval(function () {
+            if (window.AppInventor) {
+                let command = window.AppInventor.getWebViewString();
+                if (command === "downloadJson") {
+                    generateJSON(); // ถ้าได้รับคำสั่งให้ดาวน์โหลด JSON
+                } else if (command === "downloadPdf") {
+                    generatePDF(); // ถ้าได้รับคำสั่งให้ดาวน์โหลด PDF
+                }
+            }
+        }, 1000);
+    });
+</script>
+</body>
+</html>
