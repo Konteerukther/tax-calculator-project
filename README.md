@@ -27,7 +27,7 @@
 │── /components                 # (โฟลเดอร์สำหรับไฟล์ที่แยกจาก Figma)
 │   │── navbar.html             # (แถบเมนู)
 │   │── footer.html             # (ส่วนท้ายเว็บ)
-│   │── calculator-section.html  # (ส่วน UI ของเครื่องคำนวณภาษี)
+│── calculator-section.html    # (ส่วน UI ของเครื่องคำนวณภาษี)   
 │── index.html                 # (หน้าเว็บหลัก)
 │── tax-info.html              # (เมนูให้ความรู้เกี่ยวกับภาษี)
 │── print-page.html            # (หน้าสำหรับสั่งพิมพ์ข้อมูล)
