@@ -1,243 +1,170 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-* {
--webkit-font-smoothing: antialiased;
-box-sizing: border-box;
-}
-html,
-body {
-margin: 0px;
-height: 100%;
-}
-/* a blue color as a generic focus style */
-button:focus-visible {
-outline: 2px solid #4a90e2 !important;
-outline: -webkit-focus-ring-color auto 5px !important;
-}
-a {
-text-decoration: none;
-}
-
-.screen {
-display: flex;
-min-width: 1390px;
-align-items: center;
-justify-content: center;
-position: relative;
-background-color: #ffffff;
-width: 100%;
-min-height: 1035px;
-}
-
-.screen .view {
-display: flex;
-flex-direction: column;
-min-width: 412px;
-align-items: flex-start;
-gap: 16px;
-position: relative;
-flex: 1;
-flex-grow: 1;
-background-color: #ffffff;
-}
-
-.screen .back-previous {
-position: relative;
-align-self: stretch;
-width: 100%;
-flex: 0 0 auto;
-}
-
-.screen .body {
-display: flex;
-flex-direction: column;
-height: 526px;
-align-items: center;
-gap: 44px;
-padding: 25px;
-position: relative;
-align-self: stretch;
-width: 100%;
-}
-
-.screen .text-wrapper {
-align-self: stretch;
-height: 35px;
-font-family: "Bai Jamjuree-Medium", Helvetica;
-font-weight: 500;
-color: #000000;
-font-size: 28px;
-position: relative;
-margin-top: -1.00px;
-text-align: center;
-letter-spacing: 0;
-line-height: normal;
-}
-
-.screen .user-input {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 14px;
-position: relative;
-align-self: stretch;
-width: 100%;
-flex: 0 0 auto;
-}
-
-.screen .div {
-display: flex;
-flex-direction: column;
-align-items: center;
-position: relative;
-align-self: stretch;
-width: 100%;
-flex: 0 0 auto;
-}
-
-.screen .text-wrapper-2 {
-align-self: stretch;
-height: 30px;
-font-family: var(---font-family);
-font-weight: var(---font-weight);
-color: #3d513d;
-font-size: var(---font-size);
-position: relative;
-margin-top: -1.00px;
-text-align: center;
-letter-spacing: var(---letter-spacing);
-line-height: var(---line-height);
-font-style: var(---font-style);
-}
-
-.screen .rectangle {
-height: 53px;
-background-color: #eae9ee;
-border-radius: 22px;
-position: relative;
-align-self: stretch;
-width: 100%;
-}
-
-.screen .div-wrapper {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 10px;
-padding: 18px 67px;
-position: relative;
-flex: 0 0 auto;
-background-color: #c4d7b2;
-border-radius: 22px;
-}
-
-.screen .text-wrapper-3 {
-width: fit-content;
-font-family: "Bai Jamjuree-Medium", Helvetica;
-font-weight: 500;
-color: #000000;
-font-size: 32px;
-position: relative;
-margin-top: -1.00px;
-text-align: center;
-letter-spacing: 0;
-line-height: normal;
-}
-
-.screen .trees-flowers {
-display: flex;
-flex-direction: column;
-min-width: 412px;
-height: 401px;
-align-items: center;
-justify-content: center;
-position: relative;
-align-self: stretch;
-width: 100%;
-}
-
-.screen .tree-mask {
-display: flex;
-flex-direction: column;
-min-width: 412px;
-align-items: center;
-justify-content: center;
-gap: 10px;
-position: relative;
-flex: 1;
-align-self: stretch;
-width: 100%;
-flex-grow: 1;
-}
-
-.screen .img {
-flex: 1;
-flex-grow: 1;
-margin-top: -539.00px;
-margin-left: -557.00px;
-position: relative;
-align-self: stretch;
-width: 100%;
-}
-
-.screen .tree-group {
-position: absolute;
-width: 872px;
-height: 401px;
-top: 0;
-left: 259px;
-}
-:root {
-  ---font-family: "Bai Jamjuree", Helvetica;
-  ---font-weight: 400;
-  ---font-size: 12px;
-  ---letter-spacing: 0px;
-  ---line-height: normal;
-  ---font-style: normal;
-  --text-font-family: "Bai Jamjuree", Helvetica;
-  --text-font-weight: 400;
-  --text-font-size: 12px;
-  --text-letter-spacing: 0px;
-  --text-line-height: normal;
-  --text-font-style: normal;
-  --textt-font-family: "Bai Jamjuree", Helvetica;
-  --textt-font-weight: 400;
-  --textt-font-size: 15px;
-  --textt-letter-spacing: 0px;
-  --textt-line-height: normal;
-  --textt-font-style: normal;
-  --web-font-family: "Bai Jamjuree", Helvetica;
-  --web-font-weight: 500;
-  --web-font-size: 32px;
-  --web-letter-spacing: 0px;
-  --web-line-height: normal;
-  --web-font-style: normal;
-}
-
-:root {
-    ---font-family: "Bai Jamjuree", Helvetica;
-    ---font-weight: 400;
-    ---font-size: 12px;
-    ---letter-spacing: 0px;
-    ---line-height: normal;
-    ---font-style: normal;
-    --text-font-family: "Bai Jamjuree", Helvetica;
-    --text-font-weight: 400;
-    --text-font-size: 12px;
-    --text-letter-spacing: 0px;
-    --text-line-height: normal;
-    --text-font-style: normal;
-    --textt-font-family: "Bai Jamjuree", Helvetica;
-    --textt-font-weight: 400;
-    --textt-font-size: 15px;
-    --textt-letter-spacing: 0px;
-    --textt-line-height: normal;
-    --textt-font-style: normal;
-    --web-font-family: "Bai Jamjuree", Helvetica;
-    --web-font-weight: 500;
-    --web-font-size: 32px;
-    --web-letter-spacing: 0px;
-    --web-line-height: normal;
-    --web-font-style: normal;
-  }
-  
+    /* Custom General Styles */
+    /* ========== พื้นฐานของหน้าเว็บ ========== */
+    body {
+      background: #F0FFF5; /* พื้นหลังสีเขียวอ่อนพาสเทล */
+      color: #333333;      /* สีตัวอักษรหลัก */
+      font-family: "Prompt", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: #F0FFF5;
+      background-image: url("./images/among-us.gif"); /* ใส่ path รูปตามจริง */
+      background-repeat: no-repeat;
+      background-position: 100px calc(100% - 50px);
+      background-size: 120px auto;
+    }
+    
+    /* การ์ดและ container ให้มีความโปร่งและขอบมนเล็กน้อย */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .card {
+      border: none;
+      border-radius: 12px;
+      background: #FFFFFF;
+    }
+    
+    /* ========== Navbar ========== */
+    html {
+      scroll-padding-top: 70px; /* ปรับค่าให้ตรงกับความสูงของ Navbar */
+    }
+    .navbar {
+      background-color: #E5F6E5 !important;
+      border-bottom: 1px solid #C2DEC2;
+    }
+    
+    .navbar-brand {
+      color: #000000 !important;
+      font-weight: 600;
+    }
+    
+    .nav-link {
+      color: #202220 !important;
+    }
+    
+    .nav-link.active,
+    .nav-link:hover {
+      color: #000000 !important;
+    }
+    
+    /* ========== Step Indicator (สำหรับหน้าคำนวณภาษี) ========== */
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    
+    .step {
+      text-align: center;
+      flex: 1;
+      position: relative;
+    }
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background-color: #A5D6A7;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .step.active .step-number {
+      background-color: #66BB6A;
+    }
+    
+    .step-title {
+      font-size: 0.9rem;
+      color: #2E7D32;
+    }
+    
+    /* ========== ปุ่มต่าง ๆ ========== */
+    .btn {
+      border-radius: 6px;
+      font-weight: 500;
+    }
+    
+    .btn-dark {
+      background-color: #388E3C !important;
+      border-color: #2E7D32 !important;
+    }
+    
+    .btn-dark:hover {
+      background-color: #2E7D32 !important;
+      border-color: #1B5E20 !important;
+    }
+    
+    .btn-secondary {
+      background-color: #C8E6C9 !important;
+      border-color: #A5D6A7 !important;
+      color: #2E7D32 !important;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #A5D6A7 !important;
+      border-color: #81C784 !important;
+      color: #1B5E20 !important;
+    }
+    
+    .btn-success {
+      background-color: #4CAF50 !important;
+      border-color: #43A047 !important;
+    }
+    
+    .btn-info {
+      background-color: #80CBC4 !important;
+      border-color: #4DB6AC !important;
+      color: #004D40 !important;
+    }
+    
+    /* ========== ฟอร์มและช่องกรอกข้อมูล ========== */
+    .form-label {
+      font-weight: 500;
+      color: #1B5E20;
+    }
+    
+    .form-control {
+      border-radius: 6px;
+      border: 1px solid #B2DFDB;
+    }
+    
+    .form-check-input:checked {
+      background-color: #66BB6A;
+      border-color: #66BB6A;
+    }
+    
+    /* ========== ตารางสรุป ========== */
+    .table thead th {
+      background-color: #C8E6C9;
+      color: #2E7D32;
+    }
+    
+    .table tbody td {
+      vertical-align: middle;
+    }
+    
+    /* ========== ส่วนของ Step 7 สรุปภาษี ========== */
+    #step-7 h4, 
+    #step-7 h5 {
+      color: #2E7D32;
+      font-weight: 600;
+    }
+    
+    /* ========== ปรับแต่งส่วนพิมพ์ (print) ถ้าต้องการ ========== */
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #FFFFFF;
+      }
+    }
