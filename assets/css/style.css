@@ -127,7 +127,13 @@
         border-color: #4DB6AC !important;
         color: #004D40 !important;
       }
-      
+    
+    
+    .btn-icon img {
+        width: 16px; /* ปรับขนาดไอคอนให้เหมาะสม */
+        height: 16px;
+    }
+    
       /* ========== ฟอร์มและช่องกรอกข้อมูล ========== */
       .form-label {
         font-weight: 500;

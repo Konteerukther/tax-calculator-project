@@ -103,7 +103,7 @@
             </div>
             <div class="text-end">
               <input type="file" id="jsonFileInput" accept="application/json" style="display: none" onchange="loadJSON()">
-              <button onclick="document.getElementById('jsonFileInput').click()">อัปโหลดไฟล์ JSON</button>
+              <button onclick="document.getElementById('jsonFileInput').click()">อัปโหลดไฟล์.json</button>
               <button type="button" class="btn btn-info" onclick="loadTaxData()">โหลดข้อมูล</button>  
               <button type="button" class="btn btn-warning" onclick="goToStep(7)">ถัดไปอันสุดท้าย</button>
               <button type="button" class="btn btn-dark" onclick="goToStep(2)">ถัดไป</button>
@@ -477,8 +477,11 @@
               <button type="button" class="btn btn-danger" onclick="goToStep(1)">กลับไปจุดเริ่มต้น</button>
 
               <div>
+                <button type="button" class="btn btn-secondary btn-icon" onclick="downloadTaxData()">
+                  <img src="images/download.svg" alt="Download Icon">
+                  .json
+                </button>  
                 <button type="button" class="btn btn-warning" onclick="saveTaxData()">บันทึกข้อมูล</button>
-                <button type="button" class="btn btn-secondary" onclick="downloadTaxData()">ดาวน์โหลดข้อมูล</button>
                 <button type="button" class="btn btn-info" onclick="window.print(); sendToMIT(massage);" >พิมพ์หน้าสรุป</button>
                 <script>massage ="ฟังก์ชันนี้รองรับใน Web browser เท่านั้น"</script>
                 <button type="submit" class="btn btn-success d-none">ยืนยัน</button>
