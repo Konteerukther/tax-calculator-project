@@ -401,21 +401,6 @@ function loadTaxData() {
 
 // ฟังก์ชันสำหรับดาวน์โหลดข้อมูลเป็นไฟล์ JSON
 function downloadTaxData() {
-  const taxData = {};
-  document.querySelectorAll('input').forEach(input => {
-    taxData[input.id] = input.value;
-  });
-  const blob = new Blob([JSON.stringify(taxData, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'taxData.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  sendToMIT("JSON Generated");
-}
-
-function downloadTaxData() {
     const data = {
         salary: document.getElementById('salary')?.value || '',
         bonus: document.getElementById('bonus')?.value || '',
