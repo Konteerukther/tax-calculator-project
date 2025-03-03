@@ -77,16 +77,19 @@
         font-weight: 600;
         margin-bottom: 0.5rem;
         cursor: pointer;
+        display: none !important;
       }
       
       .step.active .step-number {
         background-color: #66BB6A;
+        display: none !important;
       }
       
       .step-title {
         font-size: 0.9rem;
         color: #2E7D32;
         cursor: pointer;
+        display: none !important;
       }
       
       /* ========== ปุ่มต่าง ๆ ========== */

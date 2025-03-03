@@ -51,3 +51,15 @@ function calculatePenalty() {
     
     document.getElementById('result').innerHTML = breakdownHTML;
 }
+
+function sendToMIT(message) {
+  console.log("Sending to MIT App Inventor:", message);
+  if (window.AppInventor) {
+  window.AppInventor.setWebViewString(message);
+  }
+}
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
