@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>คำนวณภาษีบุคคลธรรมดา</title>
+  <title>คำนวณภาษีเงินได้บุคคลธรรมดา</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons / Custom Fonts -->
@@ -36,7 +36,7 @@
   <div class="container py-5">
     <div class="card mx-auto shadow" style="max-width: 900px;">
       <div class="card-body p-4">
-        <h2 class="text-center mb-4">คำนวณภาษีบุคคลธรรมดา</h2>
+        <h2 class="text-center mb-4">คำนวณภาษีเงินได้บุคคลธรรมดา</h2>
         
         <!-- Step Indicator -->
         <div class="step-indicator" id="stepIndicator">
@@ -104,6 +104,7 @@
             <div class="text-end">
               <input type="file" id="jsonFileInput" accept="application/json" style="display: none" onchange="loadJSON()">
               <button onclick="document.getElementById('jsonFileInput').click()">อัปโหลดไฟล์ JSON</button>
+              <button type="button" class="btn btn-info" onclick="loadTaxData()">โหลดข้อมูล</button>  
               <button type="button" class="btn btn-warning" onclick="goToStep(7)">ถัดไปอันสุดท้าย</button>
               <button type="button" class="btn btn-dark" onclick="goToStep(2)">ถัดไป</button>
             </div>
@@ -477,8 +478,9 @@
 
               <div>
                 <button type="button" class="btn btn-warning" onclick="saveTaxData()">บันทึกข้อมูล</button>
-                <button type="button" class="btn btn-info" onclick="loadTaxData()">โหลดข้อมูล</button>
                 <button type="button" class="btn btn-secondary" onclick="downloadTaxData()">ดาวน์โหลดข้อมูล</button>
+                <button type="button" class="btn btn-info" onclick="window.print(); sendToMIT(massage);" >พิมพ์หน้าสรุป</button>
+                <script>massage ="ฟังก์ชันนี้รองรับใน Web browser เท่านั้น"</script>
                 <button type="submit" class="btn btn-success d-none">ยืนยัน</button>
               </div>
             </div>
@@ -495,6 +497,5 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Custom JavaScript -->
   <script src="assets/js/tax-calculator.js"></script>
-  <script>massage ="ฟังก์ชันนี้รองรับใน Web browser เท่านั้น"</script>
 </body>
 </html>
