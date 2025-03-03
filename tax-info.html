@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tax Tools - ข้อมูลภาษีและเครื่องมือคำนวณภาษี</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- CSS สำหรับ smooth scroll -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar ด้านบน -->
+  <nav class="navbar navbar-expand-lg navbar-light no-print">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Tax Tools</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">หน้าหลัก</a></li>
+          <li class="nav-item"><a class="nav-link" href="tax-calculator.html">คำนวณภาษี</a></li>
+          <li class="nav-item"><a class="nav-link" href="penalty-calculator.html">คำนวณค่าปรับ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero d-flex align-items-center" style="background: url('./images/หน้าปก.PNG') center center/cover no-repeat; height: 100vh; position: relative;">
+    <div class="container text-center hero-content" style="position: relative; z-index: 2;">
+      <h1 class="display-4 fw-bold" style="color: #fff;">Tax Tools</h1>
+      <p class="lead mb-4" style="color: #fff;">เครื่องมือครบวงจรสำหรับข้อมูลภาษีเงินได้บุคคลธรรมดา</p>
+      <a href="tax-calculator.html" class="btn btn-warning btn-lg me-2">
+        <i class="bi bi-calculator me-2"></i>คำนวณภาษี
+      </a>
+      <a href="penalty-calculator.html" class="btn btn-outline-light btn-lg">
+        <i class="bi bi-exclamation-triangle me-2"></i>คำนวณค่าปรับ
+      </a>
+    </div>
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 8, 0, 0.3);"></div>
+  </section>
+  
+  <!-- Features Section -->
+  <section id="features" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">คุณสมบัติของ Tax Tools</h2>
+        <p class="text-muted">ข้อมูลและเครื่องมือช่วยคำนวณภาษีที่คุณต้องการ</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card feature-card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-calculator display-4 text-warning mb-3"></i>
+              <h5 class="card-title">คำนวณภาษี</h5>
+              <p class="card-text">คำนวณภาษีเงินได้บุคคลธรรมดาอย่างรวดเร็วและแม่นยำ</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-exclamation-triangle display-4 text-danger mb-3"></i>
+              <h5 class="card-title">บทลงโทษและสิทธิ์</h5>
+              <p class="card-text">ข้อมูลเกี่ยวกับบทลงโทษและสิทธิในการอุทรณ์ภาษี</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-question-circle display-4 text-info mb-3"></i>
+              <h5 class="card-title">คำถามที่พบบ่อย</h5>
+              <p class="card-text">รวบรวมคำถามและคำตอบเพื่อความเข้าใจเกี่ยวกับภาษี</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2 class="fw-bold">เกี่ยวกับ Tax Tools</h2>
+          <p class="text-muted">
+            Tax Tools คือแพลตฟอร์มที่รวบรวมข้อมูลภาษีและเครื่องมือคำนวณภาษีเงินได้บุคคลธรรมดา
+            เพื่อช่วยให้คุณวางแผนและยื่นภาษีได้อย่างถูกต้องและรวดเร็ว
+          </p>
+          <a href="tax-calculator.html" class="btn btn-warning mt-3">
+            เริ่มคำนวณภาษี
+          </a>
+        </div>
+        <div class="col-md-6">
+          <img src="./images/image.png" alt="Tax Tools" class="img-fluid rounded">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- เริ่มเพิ่ม knowledge nav สำหรับการเลื่อนไปยังหัวข้อให้ความรู้ -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#knowledgeNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="knowledgeNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="#tax-type">ประเภทของภาษี</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tax-calculation">การคำนวณภาษี</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tax-filing">การยื่นภาษี</a></li>
+          <li class="nav-item"><a class="nav-link" href="#penalty-calculation">การคำนวณค่าปรับ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#appeal">บทลงโทษและสิทธิ์</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">คำถามที่พบบ่อย</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- รายละเอียดเนื้อหาเพิ่มเติม -->
+  <section id="tax-type" class="py-5">
+    <div class="container">
+      <h2>ประเภทของภาษี</h2>
+      <p>
+        1. ภาษีเงินได้บุคคลธรรมดาเป็นภาษีที่จัดเก็บจากบุคคลที่มีรายได้ เช่น เงินเดือน ค่าจ้าง เป็นต้น 
+        โดยอัตราการเก็บภาษีจะคำนวณจากรายได้สุทธิของผู้มีหน้าที่เสียภาษีในแต่ละปี
+      </p>
+      <p>
+        2. ภาษีเงินได้นิติบุคคลเป็นภาษีที่เรียกเก็บจากเงินได้ของบริษัทหรือห้างหุ้นส่วนนิติบุคคล เช่น ยอดรายได้ก่อนหักรายจ่ายหรือเงินได้ประเภทกำไรสุทธิ
+      </p>
+      <p>
+        3. ภาษีป้ายจัดเก็บจากป้ายที่แสดงชื่อ ยี่ห้อ หรือเครื่องหมายที่ใช้ในการประกอบการค้า 
+        ส่วนภาษีที่ดินและสิ่งปลูกสร้าง รวมทั้งภาษีมรดกจะถูกเก็บจากผู้รับมรดกหรือทายาทเมื่อได้รับการโอนทรัพย์สิน
+      </p>
+      <p>
+        4. ภาษีมูลค่าเพิ่มเรียกเก็บจากการขายสินค้าหรือบริการ ทั้งสินค้าที่ผลิตในประเทศและนำเข้าจากต่างประเทศ 
+        ในขณะที่ภาษีธุรกิจเฉพาะและอากรแสตมป์เป็นภาษีที่จัดเก็บจากกิจการหรือการกระทำตามที่กฎหมายกำหนด
+      </p>
+      <p>
+        5. ภาษีหัก ณ ที่จ่ายเป็นรูปแบบหนึ่งที่ฝ่ายจ่ายเงินจะต้องหักออกจากจำนวนเงินเต็มที่จ่ายให้กับผู้รับเงิน 
+        โดยมีหนังสือรับรองหัก ณ ที่จ่ายเป็นหลักฐานส่งให้กรมสรรพากร
+      </p>
+      <p>
+        6. นอกจากนี้ ภาษีสรรพสามิตและภาษีโรงเรือน/บำรุงท้องถิ่นยังมีบทบาทสำคัญในการเก็บภาษีในกลุ่มสินค้าฟุ่มเฟือยและทรัพย์สินที่มีมูลค่าสูง
+      </p>
+    </div>
+  </section>
+  
+  <section id="tax-calculation" class="py-5 bg-light">
+    <div class="container">
+      <h2>การคำนวณภาษีเงินได้บุคคลธรรมดา</h2>
+      <p>
+        การคำนวณภาษีเงินได้บุคคลธรรมดามีข้อควรรู้ที่สำคัญ ได้แก่:
+      </p>
+      <ul>
+        <li>อัตราภาษี (Tax Rate)</li>
+        <li>ประเภทของรายได้ที่ต้องเสียภาษี</li>
+        <li>ค่าใช้จ่ายที่สามารถหักได้</li>
+        <li>ค่าลดหย่อน</li>
+        <li>อัตราภาษีแบบขั้นบันได</li>
+        <li>เครดิตภาษีเงินได้สุทธิ (Net Income)</li>
+      </ul>
+      <p>
+        อัตราภาษีเป็นเปอร์เซ็นต์ที่ใช้คูณกับเงินได้สุทธิในการคำนวณจำนวนภาษีที่ต้องชำระ ประเทศไทยใช้อัตราภาษีแบบขั้นบันไดที่แตกต่างกันตามช่วงรายได้ เช่น:
+      </p>
+      <ul>
+        <li>รายได้ไม่เกิน 150,000 บาท: ไม่เสียภาษี</li>
+        <li>รายได้ 150,001 - 300,000 บาท: 5%</li>
+        <li>รายได้ 300,001 - 500,000 บาท: 10%</li>
+        <li>รายได้ 500,001 - 750,000 บาท: 15%</li>
+        <li>รายได้ 750,001 - 1,000,000 บาท: 20%</li>
+        <li>รายได้ 1,000,001 - 2,000,000 บาท: 25%</li>
+        <li>รายได้ 2,000,001 - 5,000,000 บาท: 30%</li>
+        <li>รายได้เกิน 5,000,000 บาท: 35%</li>
+      </ul>
+      <p>
+        นอกจากนี้ ยังมีค่าใช้จ่ายที่สามารถหักได้ เช่น การหักเหมา 50% ของรายได้ (แต่ไม่เกิน 100,000 บาท) 
+        และค่าลดหย่อนต่างๆ เช่น ค่าลดหย่อนส่วนตัว คู่สมรส บุตร พ่อแม่ ประกันชีวิตและประกันสุขภาพ 
+        รวมถึงการลงทุนในกองทุน RMF/SSF/ThaiESG และการออมในกองทุนสำรองเลี้ยงชีพ
+      </p>
+      <p>
+        เครดิตภาษี หมายถึงเงินที่ถูกหักล่วงหน้า เช่น ภาษีหัก ณ ที่จ่าย ซึ่งสามารถนำมาหักออกจากภาษีที่ต้องชำระในภายหลังได้
+      </p>
+    </div>
+  </section>
+  
+  <section id="tax-filing" class="py-5">
+    <div class="container">
+      <h2>การยื่นภาษี</h2>
+      <p>
+        การยื่นภาษีให้เป็นไปอย่างถูกต้อง จำเป็นต้องเตรียมเอกสารดังนี้:
+      </p>
+      <ul>
+        <li>ใบรับรองการหักภาษี ณ ที่จ่าย (หนังสือรับรองการหักภาษี)</li>
+        <li>ใบเสร็จรับเงิน/เอกสารยืนยันค่าใช้จ่ายและค่าลดหย่อน</li>
+        <li>เอกสารยืนยันการจ่ายเบี้ยประกันชีวิต/กองทุนสำรองเลี้ยงชีพ/RMF/SSF/ThaiESG</li>
+        <li>เอกสารเกี่ยวกับรายได้อื่นๆ เช่น รายได้จากการลงทุนหรือการขายสินค้า</li>
+      </ul>
+      <p>
+        การยื่นภาษีสามารถทำได้ทั้งแบบกระดาษ (ผ่านสำนักงานสรรพากร) และแบบออนไลน์ผ่านเว็บไซต์ <a href="https://efiling.rd.go.th/" target="_blank">E-Filing</a>
+      </p>
+      <p>
+        วันสุดท้ายสำหรับการยื่นภาษี:
+      </p>
+      <ul>
+        <li>สำหรับผู้ยื่นออนไลน์: ตั้งแต่วันนี้จนถึงวันที่ 8 เมษายน 2568</li>
+        <li>สำหรับผู้ยื่นกระดาษ: ตั้งแต่วันนี้จนถึงวันที่ 31 มีนาคม 2568</li>
+      </ul>
+    </div>
+  </section>
+  
+  <section id="penalty-calculation" class="py-5 bg-light">
+    <div class="container">
+      <h2>การคำนวณค่าปรับภาษีเงินได้</h2>
+      <p>
+        การคำนวณค่าปรับมีตัวอย่างดังนี้:
+      </p>
+      <ul>
+        <li>กรณียื่น ภ.ง.ด. (ปกติหรือเพิ่มเติม): คิดจาก ยอดภาษีที่ต้องชำระ x 1.5% x ระยะเวลา (เดือน)</li>
+        <li>กรณี ภ.ง.ด. 51: คิดจากยอดภาษีที่ต้องชำระ x 20%</li>
+        <li>กรณียื่นปกติ (เกินกำหนดเวลา): คิดจาก ยอดภาษีที่ต้องชำระ x 1.5% x ระยะเวลา (เดือน)</li>
+        <li>ค่าปรับสำหรับการยื่นภายใน 7 วันหลังครบกำหนดยื่น: แบบละ 100 บาท (หรือ 1,000 บาทสำหรับบางแบบ)</li>
+        <li>ถ้าเกิน 7 วันขึ้นไป: แบบละ 200 บาท (หรือ 2,000 บาทสำหรับบางแบบ)</li>
+        <li>กรณียื่นเพิ่มเติม: ค่าปรับอาจคิดจากยอดที่ต้องชำระ x 1.5% x ระยะเวลา พร้อมกับอัตราปรับเพิ่มเติมตามเกณฑ์ที่กำหนด (เช่น 2%, 5%, 10%, 20% ตามลำดับ)</li>
+      </ul>
+    </div>
+  </section>
+  
+  <section id="appeal" class="py-5">
+    <div class="container">
+      <h2>บทลงโทษและสิทธิในการอุทธรณ์</h2>
+      <p>
+        ผู้ถูกประเมินภาษีมีสิทธิ์คัดค้านการประเมินของเจ้าพนักงาน โดยการยื่นคำอุทธรณ์เป็นหนังสือตามแบบที่กำหนด
+        โดยต้องระบุเหตุผลและแนบเอกสารหลักฐานประกอบ
+      </p>
+      <p>
+        แบบคำอุทธรณ์ที่ใช้มีทั้ง:
+      </p>
+      <ul>
+        <li>แบบคำอุทธรณ์ (ภ.ส.6) – ใช้ได้กับการอุทธรณ์ทุกกรณี</li>
+        <li>แบบคำอุทธรณ์และคัดค้านการประเมินภาษีอากร (กศก.171) – สำหรับการอุทธรณ์ภาษีมูลค่าเพิ่มของเจ้าพนักงานประเมินกรมศุลกากร</li>
+      </ul>
+      <p>
+        การยื่นอุทธรณ์ต้องทำภายใน 30 วัน นับตั้งแต่วันที่ได้รับหนังสือแจ้งการประเมินภาษี
+      </p>
+    </div>
+  </section>
+  
+  <section id="faq" class="py-5 bg-light">
+    <div class="container">
+      <h2>คำถามที่พบบ่อย</h2>
+      <p>
+        <strong>ใครบ้างที่ต้องยื่นภาษี?</strong><br>
+        สำหรับคนที่มีรายได้จากงานประจำเพียงทางเดียว คนที่มีฐานเงินเดือนไม่เกิน 10,000 บาท ไม่ต้องยื่นภาษี 
+        แต่หากเงินเดือนไม่เกิน 26,583 บาท ต้องยื่นภาษีแม้จะไม่เสียภาษี เนื่องจากยังไม่ถึงเกณฑ์ที่ต้องเสียภาษี 
+        ถ้าเงินเดือนเกิน 26,583 บาท จะต้องยื่นและเสียภาษีด้วย
+      </p>
+      <p>
+        แหล่งข้อมูลเพิ่มเติม:
+      </p>
+      <ul>
+        <li>สำนักงานเศรษฐกิจการคลัง (FPO): <a href="https://www.fpo.go.th/" target="_blank">https://www.fpo.go.th/</a></li>
+        <li>กรมสรรพากร: <a href="https://www.rd.go.th/" target="_blank">https://www.rd.go.th/</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <button onclick="scrollToTop()" id="backToTopBtn" title="กลับไปด้านบน" class="btn btn-warning" style="position: fixed; bottom: 40px; right: 40px; z-index: 1000; display: none;">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>คำนวณค่าปรับบุคคลธรรมดา (ถ้าจ่ายไม่ทัน)</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Navbar ด้านบน -->
+  <nav class="navbar navbar-expand-lg navbar-light no-print">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">KenKen Tax</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">หน้าหลัก</a></li>
+          <li class="nav-item"><a class="nav-link" href="calculator-section.html">คำนวณภาษี</a></li>
+          <li class="nav-item"><a class="nav-link" href="penalty-calculator.html">คำนวณค่าปรับ</a></li>
+          <li class="nav-item"><a class="nav-link" href="print-page.html">ทดสอบพิมพ์</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Content -->
+  <div class="container py-5">
+    <div class="card mx-auto shadow" style="max-width: 600px;">
+      <div class="card-body p-4">
+        <h2 class="text-center mb-4">คำนวณค่าปรับบุคคลธรรมดา</h2>
+        <form id="penaltyForm">
+          <div class="mb-3">
+            <label class="form-label">ภาษีที่ต้องชำระ (บาท)</label>
+            <input type="number" class="form-control" id="baseTax" placeholder="กรอกยอดภาษีที่ต้องชำระ">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">จำนวนวันที่ชำระล่าช้า</label>
+            <input type="number" class="form-control" id="daysLate" placeholder="กรอกจำนวนวันล่าช้า">
+          </div>
+          <div class="text-end">
+            <button type="button" class="btn btn-dark" onclick="calculatePenalty()">คำนวณค่าปรับ</button>
+          </div>
+        </form>
+        <div id="result" class="mt-4">
+          <!-- ตารางแสดงผลจะถูกแทรกที่นี่ -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="assets/js/penalty-calculator.js"></script>
+</body>
+</html>

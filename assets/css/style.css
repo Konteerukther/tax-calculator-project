@@ -10,10 +10,10 @@
       
       body {
         background-color: #F0FFF5;
-        background-image: url("/images/Cactus_PNG_Clipart.png"); /* ใส่ path รูปตามจริง */
+      background-image: url("./images/among-us.gif"); /* ใส่ path รูปตามจริง */
         background-repeat: no-repeat;
-        background-position: 50px calc(100% - 25px);
-        background-size: 150px auto;
+      background-position: 100px calc(100% - 50px);
+      background-size: 120px auto;
       }
       
       /* การ์ดและ container ให้มีความโปร่งและขอบมนเล็กน้อย */
@@ -29,23 +29,26 @@
       }
       
       /* ========== Navbar ========== */
+    html {
+      scroll-padding-top: 70px; /* ปรับค่าให้ตรงกับความสูงของ Navbar */
+    }
       .navbar {
         background-color: #E5F6E5 !important;
         border-bottom: 1px solid #C2DEC2;
       }
       
       .navbar-brand {
-        color: #2E7D32 !important;
+      color: #000000 !important;
         font-weight: 600;
       }
       
       .nav-link {
-        color: #2E7D32 !important;
+      color: #202220 !important;
       }
       
       .nav-link.active,
       .nav-link:hover {
-        color: #1B5E20 !important;
+      color: #000000 !important;
       }
       
       /* ========== Step Indicator (สำหรับหน้าคำนวณภาษี) ========== */
