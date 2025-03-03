@@ -1,5 +1,11 @@
     /* Custom General Styles */
     /* ========== พื้นฐานของหน้าเว็บ ========== */
+    html, body {
+        height: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
     body {
         background: #F0FFF5; /* พื้นหลังสีเขียวอ่อนพาสเทล */
         color: #333333;      /* สีตัวอักษรหลัก */
