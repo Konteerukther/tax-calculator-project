@@ -415,6 +415,60 @@ function downloadTaxData() {
   sendToMIT("JSON Generated");
 }
 
+function downloadTaxData() {
+    const data = {
+        salary: document.getElementById('salary')?.value || '',
+        bonus: document.getElementById('bonus')?.value || '',
+        otherIncome: document.getElementById('otherIncome')?.value || '',
+        personalPaymentDeductionFinal: document.getElementById('personalPaymentDeductionFinal')?.value || '',
+        personalAllowance: document.getElementById('personalAllowance')?.value || '',
+        spouseEligible: document.getElementById('spouseEligible')?.checked ? 'on' : 'off',
+        spouseDisabled: document.getElementById('spouseDisabled')?.checked ? 'on' : 'off',
+        togglePersonalExtra: document.getElementById('togglePersonalExtra')?.checked ? 'on' : 'off',
+        pregnancyDeduction: document.getElementById('pregnancyDeduction')?.value || '',
+        legalChildrenOlder: document.getElementById('legalChildrenOlder')?.value || '',
+        legalChildrenYounger: document.getElementById('legalChildrenYounger')?.value || '',
+        adoptedChildren: document.getElementById('adoptedChildren')?.value || '',
+        parentalCount: document.getElementById('parentalCount')?.value || '',
+        disabilityCount: document.getElementById('disabilityCount')?.value || '',
+        easyEReceipt: document.getElementById('easyEReceipt')?.value || '',
+        housingInterest: document.getElementById('housingInterest')?.value || '',
+        newHouse: document.getElementById('newHouse')?.value || '',
+        provincialTour: document.getElementById('provincialTour')?.value || '',
+        social_for_family: document.getElementById('social_for_family')?.value || '',
+        socialSecurity: document.getElementById('socialSecurity')?.value || '',
+        lifeInsurance: document.getElementById('lifeInsurance')?.value || '',
+        healthInsuranceSelf: document.getElementById('healthInsuranceSelf')?.value || '',
+        healthInsuranceParents: document.getElementById('healthInsuranceParents')?.value || '',
+        spouseInsurance: document.getElementById('spouseInsurance')?.value || '',
+        socialEnterpriseInvestment: document.getElementById('socialEnterpriseInvestment')?.value || '',
+        thaiesgFund: document.getElementById('thaiesgFund')?.value || '',
+        rmfFund: document.getElementById('rmfFund')?.value || '',
+        ssfFund: document.getElementById('ssfFund')?.value || '',
+        pvdFund: document.getElementById('pvdFund')?.value || '',
+        kbkFund: document.getElementById('kbkFund')?.value || '',
+        savingsFund: document.getElementById('savingsFund')?.value || '',
+        pensionInsurance: document.getElementById('pensionInsurance')?.value || '',
+        generalDonation: document.getElementById('generalDonation')?.value || '',
+        educationDonation: document.getElementById('educationDonation')?.value || '',
+        politicalDonation: document.getElementById('politicalDonation')?.value || ''
+    };
+
+    const jsonData = JSON.stringify(data, null, 2);
+
+    if (window.AppInventor) {
+        window.AppInventor.setWebViewString(jsonData);
+    } else {
+        const blob = new Blob([jsonData], { type: "application/json" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "taxData.json";
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+}
+  
+
 function sendToMIT(message) {
     console.log("Sending to MIT App Inventor:", message);
     if (window.AppInventor) {
