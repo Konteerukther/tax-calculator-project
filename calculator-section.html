@@ -25,8 +25,7 @@
           <li class="nav-item"><a class="nav-link" href="index.html">หน้าแรก</a></li>
           <li class="nav-item"><a class="nav-link active" href="calculator-section.html">คำนวณภาษี</a></li>
           <li class="nav-item"><a class="nav-link" href="penalty-calculator.html">คำนวณค่าปรับ</a></li>
-          <li class="nav-item"><a class="nav-link" href="print-page.html">ทดสอบพิมพ์</a></li>
-          <li class="nav-item"><a class="nav-link" onclick="sendToMIT(goquizmessage)" style="cursor: pointer;">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="" onclick="sendToMIT(goquizmessage)" style="cursor: pointer;">Quiz</a></li>
           <script>goquizmessage ="กำลังเข้าสู่หน้าจอตอบคำถาม"</script>
         </ul>
       </div>
@@ -105,7 +104,6 @@
             <div class="text-end">
               <input type="file" id="jsonFileInput" accept="application/json" style="display: none" onchange="loadJSON()">
               <button onclick="document.getElementById('jsonFileInput').click()">อัปโหลดไฟล์ JSON</button>
-              <button type="button" class="btn btn-info" onclick="loadTaxData()">โหลดข้อมูล</button>
               <button type="button" class="btn btn-warning" onclick="goToStep(7)">ถัดไปอันสุดท้าย</button>
               <button type="button" class="btn btn-dark" onclick="goToStep(2)">ถัดไป</button>
             </div>
