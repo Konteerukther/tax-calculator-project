@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById("taxForm").addEventListener("submit", function(e) {
   e.preventDefault();
-  alert("ข้อมูลถูกบันทึกแล้ว (ตัวอย่าง)");
+  //alert("ข้อมูลถูกบันทึกแล้ว (ตัวอย่าง)");
 });
 
 // ฟังก์ชันสำหรับเก็บข้อมูลลง localStorage
@@ -399,19 +399,130 @@ function loadTaxData() {
   }
 }
 
+// ฟังก์ชันโหลดไฟล์ JSON จากผู้ใช้
+function loadJSON() {
+  const fileInput = document.getElementById("jsonFileInput");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("กรุณาเลือกไฟล์ก่อน!");
+    return;
+  }
+
+  // ตรวจสอบให้แน่ใจว่าเป็นไฟล์ .json เท่านั้น
+  if (!file.name.endsWith(".json") || file.type !== "application/json") {
+    alert("กรุณาเลือกไฟล์ JSON เท่านั้น!");
+    fileInput.value = ""; // ล้างค่าถ้าไฟล์ไม่ถูกต้อง
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    try {
+      const jsonData = JSON.parse(event.target.result);
+      console.log("Loaded JSON Data:", jsonData);
+      
+      // กำหนดค่าลงในฟิลด์ที่เกี่ยวข้อง
+      document.getElementById('salary').value = jsonData.salary || '';
+      document.getElementById('bonus').value = jsonData.bonus || '';
+      document.getElementById('otherIncome').value = jsonData.otherIncome || '';
+      document.getElementById('personalPaymentDeductionFinal').value = jsonData.personalPaymentDeductionFinal || '';
+      document.getElementById('personalAllowance').value = jsonData.personalAllowance || '';
+
+      // กำหนดค่าสำหรับ checkbox
+      document.getElementById('spouseEligible').checked = jsonData.spouseEligible === 'on';
+      document.getElementById('spouseDisabled').checked = jsonData.spouseDisabled === 'on';
+      document.getElementById('togglePersonalExtra').checked = jsonData.togglePersonalExtra === 'on';
+
+      document.getElementById('pregnancyDeduction').value = jsonData.pregnancyDeduction || '';
+      document.getElementById('legalChildrenOlder').value = jsonData.legalChildrenOlder || '';
+      document.getElementById('legalChildrenYounger').value = jsonData.legalChildrenYounger || '';
+      document.getElementById('adoptedChildren').value = jsonData.adoptedChildren || '';
+      document.getElementById('parentalCount').value = jsonData.parentalCount || '';
+      document.getElementById('disabilityCount').value = jsonData.disabilityCount || '';
+
+      document.getElementById('easyEReceipt').value = jsonData.easyEReceipt || '';
+      document.getElementById('housingInterest').value = jsonData.housingInterest || '';
+      document.getElementById('newHouse').value = jsonData.newHouse || '';
+      document.getElementById('provincialTour').value = jsonData.provincialTour || '';
+
+      document.getElementById('social_for_family').value = jsonData.social_for_family || '';
+      document.getElementById('socialSecurity').value = jsonData.socialSecurity || '';
+      document.getElementById('lifeInsurance').value = jsonData.lifeInsurance || '';
+      document.getElementById('healthInsuranceSelf').value = jsonData.healthInsuranceSelf || '';
+      document.getElementById('healthInsuranceParents').value = jsonData.healthInsuranceParents || '';
+      document.getElementById('spouseInsurance').value = jsonData.spouseInsurance || '';
+
+      document.getElementById('socialEnterpriseInvestment').value = jsonData.socialEnterpriseInvestment || '';
+      document.getElementById('thaiesgFund').value = jsonData.thaiesgFund || '';
+      document.getElementById('rmfFund').value = jsonData.rmfFund || '';
+      document.getElementById('ssfFund').value = jsonData.ssfFund || '';
+      document.getElementById('pvdFund').value = jsonData.pvdFund || '';
+      document.getElementById('kbkFund').value = jsonData.kbkFund || '';
+      document.getElementById('savingsFund').value = jsonData.savingsFund || '';
+      document.getElementById('pensionInsurance').value = jsonData.pensionInsurance || '';
+
+      document.getElementById('generalDonation').value = jsonData.generalDonation || '';
+      document.getElementById('educationDonation').value = jsonData.educationDonation || '';
+      document.getElementById('politicalDonation').value = jsonData.politicalDonation || '';
+
+      console.log("JSON data loaded successfully.");
+      sendToMIT("JSON Loaded");
+  } catch (error) {
+      console.error("Error parsing JSON:", error);
+  }
+  };
+
+  reader.readAsText(file);
+}
+
 // ฟังก์ชันสำหรับดาวน์โหลดข้อมูลเป็นไฟล์ JSON
-function downloadTaxData() {
-  const taxData = {};
-  document.querySelectorAll('input').forEach(input => {
-    taxData[input.id] = input.value;
-  });
-  const blob = new Blob([JSON.stringify(taxData, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'taxData.json';
-  a.click();
-  URL.revokeObjectURL(url);
+function downloadTaxData() { 
+  const data = {
+      salary: document.getElementById('salary')?.value || '',
+      bonus: document.getElementById('bonus')?.value || '',
+      otherIncome: document.getElementById('otherIncome')?.value || '',
+      personalPaymentDeductionFinal: document.getElementById('personalPaymentDeductionFinal')?.value || '',
+      personalAllowance: document.getElementById('personalAllowance')?.value || '',
+      spouseEligible: document.getElementById('spouseEligible')?.checked ? 'on' : 'off',
+      spouseDisabled: document.getElementById('spouseDisabled')?.checked ? 'on' : 'off',
+      togglePersonalExtra: document.getElementById('togglePersonalExtra')?.checked ? 'on' : 'off',
+      pregnancyDeduction: document.getElementById('pregnancyDeduction')?.value || '',
+      legalChildrenOlder: document.getElementById('legalChildrenOlder')?.value || '',
+      legalChildrenYounger: document.getElementById('legalChildrenYounger')?.value || '',
+      adoptedChildren: document.getElementById('adoptedChildren')?.value || '',
+      parentalCount: document.getElementById('parentalCount')?.value || '',
+      disabilityCount: document.getElementById('disabilityCount')?.value || '',
+      easyEReceipt: document.getElementById('easyEReceipt')?.value || '',
+      housingInterest: document.getElementById('housingInterest')?.value || '',
+      newHouse: document.getElementById('newHouse')?.value || '',
+      provincialTour: document.getElementById('provincialTour')?.value || '',
+      social_for_family: document.getElementById('social_for_family')?.value || '',
+      socialSecurity: document.getElementById('socialSecurity')?.value || '',
+      lifeInsurance: document.getElementById('lifeInsurance')?.value || '',
+      healthInsuranceSelf: document.getElementById('healthInsuranceSelf')?.value || '',
+      healthInsuranceParents: document.getElementById('healthInsuranceParents')?.value || '',
+      spouseInsurance: document.getElementById('spouseInsurance')?.value || '',
+      socialEnterpriseInvestment: document.getElementById('socialEnterpriseInvestment')?.value || '',
+      thaiesgFund: document.getElementById('thaiesgFund')?.value || '',
+      rmfFund: document.getElementById('rmfFund')?.value || '',
+      ssfFund: document.getElementById('ssfFund')?.value || '',
+      pvdFund: document.getElementById('pvdFund')?.value || '',
+      kbkFund: document.getElementById('kbkFund')?.value || '',
+      savingsFund: document.getElementById('savingsFund')?.value || '',
+      pensionInsurance: document.getElementById('pensionInsurance')?.value || '',
+      generalDonation: document.getElementById('generalDonation')?.value || '',
+      educationDonation: document.getElementById('educationDonation')?.value || '',
+      politicalDonation: document.getElementById('politicalDonation')?.value || ''
+  };
+
+  const jsonData = JSON.stringify(data, null, 2);
+  const blob = new Blob([jsonData], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "taxData.json";
+  link.click();
+  //URL.revokeObjectURL(link.href);
   sendToMIT("JSON Generated");
 }
 

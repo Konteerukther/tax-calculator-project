@@ -51,3 +51,10 @@ function calculatePenalty() {
     
     document.getElementById('result').innerHTML = breakdownHTML;
 }
+
+function sendToMIT(message) {
+  console.log("Sending to MIT App Inventor:", message);
+  if (window.AppInventor) {
+  window.AppInventor.setWebViewString(message);
+  }
+}

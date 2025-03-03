@@ -9,6 +9,13 @@ function scrollFunction() {
   }
 }
 
-function scrollToTop() {
+function scrollToTop() {  
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function sendToMIT(message) {
+  console.log("Sending to MIT App Inventor:", message);
+  if (window.AppInventor) {
+  window.AppInventor.setWebViewString(message);
+  }
 }
