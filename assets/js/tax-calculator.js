@@ -440,17 +440,13 @@ function downloadTaxData() {
     };
 
     const jsonData = JSON.stringify(data, null, 2);
-
-    if (window.AppInventor) {
-        window.AppInventor.setWebViewString(jsonData);
-    } else {
-        const blob = new Blob([jsonData], { type: "application/json" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "taxData.json";
-        link.click();
-        URL.revokeObjectURL(link.href);
-    }
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "taxData.json";
+    link.click();
+    //URL.revokeObjectURL(link.href);
+    sendToMIT("JSON Generated");
 }
   
 
