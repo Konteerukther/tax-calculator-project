@@ -1,11 +1,5 @@
     /* Custom General Styles */
     /* ========== พื้นฐานของหน้าเว็บ ========== */
-    html, body {
-        height: 100%;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
     body {
         background: #F0FFF5; /* พื้นหลังสีเขียวอ่อนพาสเทล */
         color: #333333;      /* สีตัวอักษรหลัก */
@@ -37,10 +31,12 @@
       /* ========== Navbar ========== */
     html {
       scroll-padding-top: 70px; /* ปรับค่าให้ตรงกับความสูงของ Navbar */
+      scroll-behavior: auto;
     }
       .navbar {
-        background-color: #E5F6E5 !important;
+        background-color: #d3f6d3;
         border-bottom: 1px solid #C2DEC2;
+        z-index: 10;
       }
       
       .navbar-brand {
