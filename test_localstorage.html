@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การใช้งาน LocalStorage (หลายคีย์)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            padding: 5px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>LocalStorage - จัดเก็บข้อมูลหลายคีย์</h2>
+    
+    <input type="text" id="keyInput" placeholder="กรอกชื่อคีย์ (key)">
+    <input type="text" id="valueInput" placeholder="กรอกค่าที่ต้องการบันทึก">
+    <br>
+    <button onclick="saveData()">💾 บันทึก</button>
+    <button onclick="loadData()">📂 โหลด</button>
+    <button onclick="deleteData()">🗑 ลบคีย์</button>
+    <button onclick="showAllKeys()">🔍 แสดงคีย์ทั้งหมด</button>
+    <button onclick="clearAllData()">⚠️ ลบข้อมูลทั้งหมด</button>
+
+    <h3>ข้อมูลที่โหลด:</h3>
+    <p id="output">ยังไม่มีข้อมูล</p>
+
+    <script>
+        function saveData() {
+            let key = document.getElementById("keyInput").value.trim();
+            let value = document.getElementById("valueInput").value.trim();
+
+            if (key && value) {
+                localStorage.setItem(key, value);
+                console.log(`✅ บันทึกคีย์ "${key}": ${value}`);
+                alert(`บันทึกข้อมูลสำเร็จ! คีย์: ${key}`);
+            } else {
+                alert("กรุณากรอกคีย์และค่าก่อนบันทึก!");
+            }
+        }
+
+        function loadData() {
+            let key = document.getElementById("keyInput").value.trim();
+            let value = localStorage.getItem(key);
+
+            if (value) {
+                document.getElementById("output").innerText = `คีย์ "${key}": ${value}`;
+                console.log(`📂 โหลดข้อมูลสำเร็จ: ${key} = ${value}`);
+            } else {
+                document.getElementById("output").innerText = "ไม่มีข้อมูลสำหรับคีย์นี้";
+                console.log(`⚠️ ไม่มีข้อมูลสำหรับคีย์ "${key}"`);
+            }
+        }
+
+        function deleteData() {
+            let key = document.getElementById("keyInput").value.trim();
+
+            if (localStorage.getItem(key)) {
+                localStorage.removeItem(key);
+                console.log(`🗑 ลบคีย์ "${key}" สำเร็จ!`);
+                alert(`ลบข้อมูลสำเร็จ! คีย์: ${key}`);
+            } else {
+                alert("ไม่พบคีย์นี้ใน LocalStorage!");
+            }
+        }
+
+        function showAllKeys() {
+            if (localStorage.length === 0) {
+                console.log("📭 LocalStorage ว่างเปล่า!");
+                alert("ไม่มีข้อมูลที่บันทึกไว้!");
+            } else {
+                console.log(`📊 LocalStorage มี ${localStorage.length} คีย์`);
+                let result = "🔑 คีย์ทั้งหมด:\n";
+                for (let i = 0; i < localStorage.length; i++) {
+                    let key = localStorage.key(i);
+                    let value = localStorage.getItem(key);
+                    console.log(`🔑 ${key}: ${value}`);
+                    result += `🔹 ${key}: ${value}\n`;
+                }
+                alert(result);
+            }
+        }
+
+        function clearAllData() {
+            if (confirm("⚠️ คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลทั้งหมด?")) {
+                localStorage.clear();
+                console.log("🚨 ล้างข้อมูลทั้งหมดใน LocalStorage!");
+                alert("ล้างข้อมูลทั้งหมดเรียบร้อย!");
+            }
+        }
+
+        // ✅ แสดงข้อมูลทั้งหมดใน Console เมื่อโหลดหน้าเว็บ
+        console.log("🔄 โหลดข้อมูลใน LocalStorage...");
+        showAllKeys();
+    </script>
+
+</body>
+</html>
